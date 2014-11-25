@@ -425,17 +425,17 @@
 	};
 
 	var DIACRITICS = {
-		'a': '[aÀÁÂÃÄÅàáâãäåĀā]',
+		'a': '[aÀÁÂÃÄÅàáâãäå]',
 		'c': '[cÇçćĆčČ]',
 		'd': '[dđĐďĎ]',
-		'e': '[eÈÉÊËèéêëěĚĒē]',
-		'i': '[iÌÍÎÏìíîïĪī]',
+		'e': '[eÈÉÊËèéêëěĚ]',
+		'i': '[iÌÍÎÏìíîï]',
 		'n': '[nÑñňŇ]',
-		'o': '[oÒÓÔÕÕÖØòóôõöøŌō]',
+		'o': '[oÒÓÔÕÕÖØòóôõöø]',
 		'r': '[rřŘ]',
 		's': '[sŠš]',
 		't': '[tťŤ]',
-		'u': '[uÙÚÛÜùúûüůŮŪū]',
+		'u': '[uÙÚÛÜùúûüůŮ]',
 		'y': '[yŸÿýÝ]',
 		'z': '[zŽž]'
 	};
@@ -1517,7 +1517,12 @@
 				case KEY_TAB:
 					if (self.settings.selectOnTab && self.isOpen && self.$activeOption) {
 						self.onOptionSelect({currentTarget: self.$activeOption});
-						e.preventDefault();
+	
+						// Default behaviour is to jump to the next field, we only want this
+						// if the current field doesn't accept any more entries
+						if (!self.isFull()) {
+							e.preventDefault();
+						}
 					}
 					if (self.settings.create && self.createItem()) {
 						e.preventDefault();
